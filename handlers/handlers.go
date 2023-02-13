@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"golang-fifa-world-cup-web-service/data"
 	"net/http"
 )
@@ -19,6 +20,7 @@ func ListWinners(res http.ResponseWriter, req *http.Request) {
 		if err != nil {
 			res.WriteHeader(http.StatusInternalServerError)
 		}
+		fmt.Printf("INFO: Winners: %s\n\n", winners)
 		res.Write(winners)
 	} else {
 		filteredWinners, err := data.ListAllByYear(year)
@@ -36,5 +38,5 @@ func AddNewWinner(res http.ResponseWriter, req *http.Request) {
 
 // WinnersHandler is the dispatcher for all /winners URL
 func WinnersHandler(res http.ResponseWriter, req *http.Request) {
-
+	ListWinners(res, req)
 }
